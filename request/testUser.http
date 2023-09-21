@@ -1,0 +1,23 @@
+@apiOne = http://localhost:3000/register
+@apiTwo = http://localhost:3000/login
+
+POST {{apiOne}}
+Content-Type: application/json
+
+{
+    "nombre": "Yerling",
+    "contrasena": "123456",
+    "rol": "admin"
+}
+
+###
+POST {{apiTwo}}
+Content-Type: application/json
+
+{
+    "nombre": "Yerling",
+    "contrasena": "123456"
+}
+
+###
+GET {{apiTwo}}

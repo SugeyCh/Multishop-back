@@ -1,0 +1,7 @@
+CREATE TABLE `detallepr` (
+  `codigo` varchar(15) DEFAULT '',
+  `precio1` decimal(25,6) DEFAULT '0.000000',
+  `id` int(11) NOT NULL AUTO_INCREMENT
+  PRIMARY KEY (`id`),
+  KEY `codigo` (`codigo`)
+);
