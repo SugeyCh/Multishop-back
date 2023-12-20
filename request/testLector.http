@@ -1,7 +1,7 @@
 @api = http://localhost:3000/lector
 
 ###
-GET {{api}}/7592454000802
+GET {{api}}/002
 
 ###
 POST {{api}}

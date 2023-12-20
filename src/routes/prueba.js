@@ -9,11 +9,11 @@ RouterTest.get('/test', async(req, res) => {
             return res.status(200).json({Status: 'Success'})
         }else{
             console.log('Fallo al conectarse')
-            return res.status(400).json({Status: 'Failed'})
+            return res.status(400)
         }
     }catch(error){
         console.log('Error: ', error)
-        return res.status(500).json({Status: 'Failed'})
+        return res.status(500)
     }
 })
 

@@ -19,8 +19,7 @@ const app = express();
 
 app.use(cors({
     origin: ["*"],
-    methods: ["POST", "GET"],
-    credentials: true
+    methods: ["GET", "POST"]
 }))
 app.use(cookieParser())
 app.use(morgan("dev"));
@@ -33,4 +32,4 @@ app.use(routesReg);
 app.use(RouterTest)
 // app.use('/docs', swaggerUI.server, swaggerUI.setup(specs));
 
-export default app; 
+export default app;

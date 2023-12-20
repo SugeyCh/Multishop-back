@@ -5,73 +5,95 @@ import { token } from "morgan";
 
 
 export const getUsers = async (req, res) => {
-  const bd = await conn();
-  const [rows] = await bd.query('SELECT * FROM devices')
-  console.log(rows)
-  res.status(200).json(rows)
+  try{
+    const bd = await conn();
+    const [rows] = await bd.query('SELECT * FROM devices')
+    console.log(rows)
+    res.status(200).json(rows)
+  }catch(err){
+    console.log('Error login: ', err)
+  }
 }
 
 
 export const verifyUser = (req, res, next) => {
- const token = req.cookies.token
- if(!token){
-  return res.json({Error: "No estás autenticado"})
- }else{
-  jwt.verify(token, "clave-secreta", (err, decoded) => {
-    if(err){
-      return res.json({Error: "Token inválido"})
+  try{
+    const token = req.cookies.token
+    console.log(token);
+    if(!token){
+     return res.json({Error: "No estás autenticado"})
     }else{
-      req.nombre = decoded.nombre
-      next()
+     jwt.verify(token, "clave-secreta", (err, decoded) => {
+       if(err){
+         return res.json({Error: "Token inválido"})
+       }else{
+         req.nombre = decoded.nombre
+         next()
+       }
+     })
     }
-  })
- }
+  }catch(err){
+    console.log("Error al verificar usuario: ", err)
+  }
 }
 
 export const authLogin = (req, res) => {
-  return res.json({Status: "Success", nombre: req.nombre})
+  try{
+    return res.json({Status: "Success", nombre: req.nombre})
+  }catch(err){
+    console.log("Error al autorizar: ", err)
+  }
 }
 
 export const loginUser = async (req, res) => {
-  const bd = await conn();
-  const { nombre, contrasena } = req.body;
-  const [results] = await bd.query("SELECT * FROM devices WHERE nombre = ?", [
-    nombre,
-  ]);
-  console.log(results);
-
-  // await new Promise(resolve => setTimeout(resolve, 3000));
-
-  if (results.length === 0) {
-    console.log("Usuario no encontrado");
+  try{
+    
+    const bd = await conn();
+    const { nombre, contrasena } = req.body;
+    const [results] = await bd.query("SELECT * FROM devices WHERE nombre = ?", [
+      nombre,
+    ]);
     console.log(results);
-    return res.status(401).json({ Error: "Usuario no encontrado." });
+  
+    // await new Promise(resolve => setTimeout(resolve, 3000));
+  
+    if (results.length === 0) {
+      console.log("Usuario no encontrado");
+      console.log(results);
+      return res.status(401).json({ Error: "Usuario no encontrado." });
+    }
+  
+    const user = results[0];
+  
+    if (contrasena === user.contrasena) {
+      console.log("Autenticación exitosa");
+      const nombre = user.nombre
+      const token = jwt.sign({nombre}, "clave-secreta", {expiresIn: "1d"})
+      res.cookie("token", token)
+      console.log("token: ", token)
+      // console.log(results);
+      return res
+        .status(200)
+        .json({ Status: "Autenticación exitosa", usuario: user });
+    } else {
+      console.log("Contraseña incorrecta");
+      console.log(user.contrasena)
+      return res.status(401).json({ Error: "Contraseña incorrecta." });
+    }
+    // } catch (err) {
+    //     console.log("Error al buscar usuario:", err);
+    //     return res.status(500).json({ Error: "Error al buscar el usuario." });
+    // }
+  }catch(err){
+    console.log("Error al loguear: ", err)
   }
-
-  const user = results[0];
-
-  if (contrasena === user.contrasena) {
-    console.log("Autenticación exitosa");
-    const nombre = user.nombre
-    const token = jwt.sign({nombre}, "clave-secreta", {expiresIn: "1d"})
-    res.cookie("token", token)
-    console.log("token: ", token)
-    // console.log(results);
-    return res
-      .status(200)
-      .json({ Status: "Autenticación exitosa", usuario: user });
-  } else {
-    console.log("Contraseña incorrecta");
-    console.log(user.contrasena)
-    return res.status(401).json({ Error: "Contraseña incorrecta." });
-  }
-  // } catch (err) {
-  //     console.log("Error al buscar usuario:", err);
-  //     return res.status(500).json({ Error: "Error al buscar el usuario." });
-  // }
 };
 
 export const userLogout = (req, res) => {
-  res.clearCookie('token')
-  return res.json({Status: 'Success'})
+  try{
+    res.clearCookie('token')
+    return res.json({Status: 'Success'})
+  }catch(err){
+    console.log("Error al salir: ", err)
+  }
 }

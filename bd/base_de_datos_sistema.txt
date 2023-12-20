@@ -1,0 +1,279 @@
+--
+-- Base de datos: `sistema`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `calternos`
+--
+
+CREATE TABLE `calternos` (
+  `cpadre` varchar(15) DEFAULT NULL,
+  `chijo` varchar(15) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `calternos`
+--
+
+INSERT INTO `calternos` (`cpadre`, `chijo`) VALUES
+('5380', '7592454000802'),
+('20000298', '720524031082'),
+('20001008', '7592454889780');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detallepr`
+--
+
+CREATE TABLE `detallepr` (
+  `codigo` varchar(15) DEFAULT '',
+  `precio1` decimal(25,6) DEFAULT '0.000000',
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `detallepr`
+--
+
+INSERT INTO `detallepr` (`codigo`, `precio1`, `id`) VALUES
+('5380', '12.000000', 1),
+('20000298', '3.500000', 2),
+('20001008', '12.530000', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `devices`
+--
+
+CREATE TABLE `devices` (
+  `id_user` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `contrasena` varchar(255) NOT NULL,
+  `rol` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `devices`
+--
+
+INSERT INTO `devices` (`id_user`, `nombre`, `contrasena`, `rol`) VALUES
+(59, 'Yerling', '123456', 'admin'),
+(60, 'Kenyer', 'yo123', 'admin'),
+(61, 'Elda', 'tita123', 'visor'),
+(62, 'Elías', 'elias123', 'admin'),
+(63, 'Kenny', '123456', 'colector');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `movements`
+--
+
+CREATE TABLE `movements` (
+  `id_mov` int(11) NOT NULL,
+  `user` varchar(20) NOT NULL,
+  `cod_prod` varchar(255) NOT NULL,
+  `conteo` int(11) NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `movements`
+--
+
+INSERT INTO `movements` (`id_mov`, `user`, `cod_prod`, `conteo`, `fecha`) VALUES
+(1, 'Kenyer', '7592454000802', 600, '2023-09-14 18:30:11'),
+(2, 'Kenny', '7592454889780', 400, '2023-09-14 18:31:32'),
+(3, 'Elías', '7592454889780', 35, '2023-09-15 12:22:15'),
+(4, 'Elías', '7592454000802', 365, '2023-09-15 14:13:57'),
+(5, 'Kenyer', '7592454000802', 6000, '2023-09-15 14:14:13'),
+(6, 'Kenny', '7592454889780', 100, '2023-09-15 14:14:45'),
+(7, 'Kenyer', '7592454889780', 690, '2023-09-15 14:21:22'),
+(8, 'Kenyer', '7592454889780', -50, '2023-09-15 14:21:34'),
+(9, 'Kenyer', '7592454000802', 360, '2023-09-15 14:39:38'),
+(10, 'Elías', '7592454000802', 350, '2023-09-15 14:39:38'),
+(11, 'Kenyer', '7592454000802', 674664, '2023-09-15 17:45:50'),
+(12, 'Elías', '7592454000802', 500, '2023-09-15 17:52:04'),
+(13, 'Kenyer', '7592454000802', 500, '2023-09-15 17:52:04'),
+(14, 'Kenyer', '7592454889780', 659, '2023-09-16 18:10:31'),
+(15, 'Kenyer', '7592454889780', 35, '2023-09-16 18:38:54'),
+(16, 'Kenny', '7592454000802', 32, '2023-09-16 18:39:42'),
+(17, 'Kenyer', '7592454889780', 39, '2023-09-17 17:50:43'),
+(18, 'Kenyer', '7592454889780', 666, '2023-09-17 18:08:34'),
+(19, 'Kenny', '7592454889780', 369, '2023-09-17 18:08:56'),
+(20, 'Kenyer', '7592454889780', 999, '2023-09-17 18:10:13'),
+(21, 'Kenny', '7592454889780', 364, '2023-09-17 18:10:32');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sinv`
+--
+
+CREATE TABLE `sinv` (
+  `codigo` varchar(15) DEFAULT NULL,
+  `descrip` varchar(240) DEFAULT NULL,
+  `ccate` varchar(10) DEFAULT NULL,
+  `cod_prv` varchar(30) DEFAULT NULL,
+  `pg1` float(15,2) DEFAULT NULL,
+  `pg2` float(15,2) DEFAULT NULL,
+  `pg3` float(15,2) DEFAULT NULL,
+  `pg4` float(15,2) DEFAULT NULL,
+  `precio1` float(15,2) DEFAULT NULL,
+  `precio2` float(15,2) DEFAULT NULL,
+  `precio3` float(15,2) DEFAULT NULL,
+  `precio4` float(15,2) DEFAULT NULL,
+  `porvg` float(15,2) DEFAULT NULL,
+  `uxb` float(15,2) DEFAULT NULL,
+  `existencia` float(15,2) DEFAULT NULL,
+  `existenciad` float(15,2) DEFAULT NULL,
+  `compromet` float(15,2) DEFAULT NULL,
+  `costo` float(15,2) DEFAULT NULL,
+  `costoant` float(15,2) DEFAULT NULL,
+  `costodolar` float(15,2) DEFAULT NULL,
+  `costopro` float(15,2) DEFAULT NULL,
+  `costosf` float(15,2) DEFAULT NULL,
+  `stockmin` float(15,2) DEFAULT NULL,
+  `stockmax` float(15,2) DEFAULT NULL,
+  `barra` varchar(15) DEFAULT NULL,
+  `referencia` varchar(15) DEFAULT NULL,
+  `fultimav` date DEFAULT NULL,
+  `fultimac` date DEFAULT NULL,
+  `compuesto` varchar(10) DEFAULT NULL,
+  `importado` varchar(10) DEFAULT NULL,
+  `pesado` varchar(10) DEFAULT NULL,
+  `descontinuado` varchar(10) DEFAULT NULL,
+  `ofertasn` varchar(10) DEFAULT NULL,
+  `fofertai` date DEFAULT NULL,
+  `fofertaf` date DEFAULT NULL,
+  `cantidado` float(15,2) DEFAULT NULL,
+  `precioo` float(15,2) DEFAULT NULL,
+  `entradas` float(15,2) DEFAULT NULL,
+  `salidas` float(15,2) DEFAULT NULL,
+  `retiros` float(15,2) DEFAULT NULL,
+  `autocon` float(15,2) DEFAULT NULL,
+  `existenciaa` float(15,2) DEFAULT NULL,
+  `ctipo` varchar(10) DEFAULT NULL,
+  `cacaba` varchar(10) DEFAULT NULL,
+  `cancho` varchar(10) DEFAULT NULL,
+  `cpeso` varchar(10) DEFAULT NULL,
+  `ctejido` varchar(10) DEFAULT NULL,
+  `ccompo` varchar(10) DEFAULT NULL,
+  `fcrea` date DEFAULT NULL,
+  `corigen` varchar(15) DEFAULT NULL,
+  `existenciatf` float(15,2) DEFAULT NULL,
+  `rexk` float(15,2) DEFAULT NULL,
+  `ultimoinv` date DEFAULT NULL,
+  `cubicacion` varchar(15) DEFAULT NULL,
+  `cunidad` varchar(10) DEFAULT NULL,
+  `rendimiento` varchar(10) DEFAULT NULL,
+  `cgeneral` varchar(10) DEFAULT NULL,
+  `pesof` float(15,2) DEFAULT NULL,
+  `precio5` float(15,2) DEFAULT NULL,
+  `pg5` float(15,2) DEFAULT NULL,
+  `descontinuador` varchar(15) DEFAULT NULL,
+  `csaga` varchar(15) DEFAULT NULL,
+  `cantidadxb` float(15,2) DEFAULT NULL,
+  `permitirvsi` int(11) DEFAULT NULL,
+  `preciosun` float(15,2) DEFAULT NULL,
+  `componente` varchar(100) DEFAULT NULL,
+  `ndiasbxc` int(11) DEFAULT NULL,
+  `csiclhos` varchar(20) DEFAULT NULL,
+  `rubrosh` varchar(2) DEFAULT NULL,
+  `precio1u` float(15,2) DEFAULT NULL,
+  `precio2u` float(15,2) DEFAULT NULL,
+  `precio3u` float(15,2) DEFAULT NULL,
+  `precio4u` float(15,2) DEFAULT NULL,
+  `precio5u` float(15,2) DEFAULT NULL,
+  `crubro_sicopadi` int(11) DEFAULT NULL,
+  `pvjusto` int(11) DEFAULT NULL,
+  `UCMA` float(15,2) DEFAULT NULL,
+  `incluir_sinc_siclhos` varchar(1) DEFAULT NULL,
+  `UCMA_numfac` varchar(100) DEFAULT NULL,
+  `UCMA_codprv` varchar(100) DEFAULT NULL,
+  `UCMA_fechafact` varchar(100) DEFAULT NULL,
+  `activo` int(11) DEFAULT NULL,
+  `recipe` int(11) DEFAULT NULL,
+  `pvmd` float(15,2) DEFAULT NULL,
+  `vmd` float(15,2) DEFAULT NULL,
+  `mbloqueoci` int(11) DEFAULT NULL,
+  `msada` int(11) DEFAULT NULL,
+  `id_inv` int(11) DEFAULT NULL,
+  `ucan1` float(15,2) DEFAULT NULL,
+  `ucan2` float(15,2) DEFAULT NULL,
+  `ucan3` float(15,2) DEFAULT NULL,
+  `ucan4` float(15,2) DEFAULT NULL,
+  `bandasno` int(11) DEFAULT NULL,
+  `marca` varchar(20) DEFAULT NULL,
+  `costoe` float(15,2) DEFAULT NULL,
+  `pg1e` float(15,2) DEFAULT NULL,
+  `precio1e` float(15,2) DEFAULT NULL,
+  `prioridad` varchar(10) DEFAULT NULL,
+  `precio1div` float(15,2) DEFAULT NULL,
+  `precio1ediv` float(15,2) DEFAULT NULL,
+  `cdepura` varchar(30) DEFAULT NULL,
+  `cfrio` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `sinv`
+--
+
+INSERT INTO `sinv` (`codigo`, `descrip`, `ccate`, `cod_prv`, `pg1`, `pg2`, `pg3`, `pg4`, `precio1`, `precio2`, `precio3`, `precio4`, `porvg`, `uxb`, `existencia`, `existenciad`, `compromet`, `costo`, `costoant`, `costodolar`, `costopro`, `costosf`, `stockmin`, `stockmax`, `barra`, `referencia`, `fultimav`, `fultimac`, `compuesto`, `importado`, `pesado`, `descontinuado`, `ofertasn`, `fofertai`, `fofertaf`, `cantidado`, `precioo`, `entradas`, `salidas`, `retiros`, `autocon`, `existenciaa`, `ctipo`, `cacaba`, `cancho`, `cpeso`, `ctejido`, `ccompo`, `fcrea`, `corigen`, `existenciatf`, `rexk`, `ultimoinv`, `cubicacion`, `cunidad`, `rendimiento`, `cgeneral`, `pesof`, `precio5`, `pg5`, `descontinuador`, `csaga`, `cantidadxb`, `permitirvsi`, `preciosun`, `componente`, `ndiasbxc`, `csiclhos`, `rubrosh`, `precio1u`, `precio2u`, `precio3u`, `precio4u`, `precio5u`, `crubro_sicopadi`, `pvjusto`, `UCMA`, `incluir_sinc_siclhos`, `UCMA_numfac`, `UCMA_codprv`, `UCMA_fechafact`, `activo`, `recipe`, `pvmd`, `vmd`, `mbloqueoci`, `msada`, `id_inv`, `ucan1`, `ucan2`, `ucan3`, `ucan4`, `bandasno`, `marca`, `costoe`, `pg1e`, `precio1e`, `prioridad`, `precio1div`, `precio1ediv`, `cdepura`, `cfrio`) VALUES
+('20000298', 'MELOXICAM 10TAB LATTAN MEDIC', '001', '102', 22.07, 0.00, 0.00, 0.00, 47.08, 0.00, 0.00, 0.00, 0.00, 1.00, 0.00, 0.00, 0.00, 36.69, 0.00, 0.00, 0.00, 36.69, 0.00, 10.00, '20000298', '', NULL, NULL, 'No', 'No', 'No', '0', 'No', '2018-01-01', '2018-01-01', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, '', '', '', '', '', '', '2023-08-02', '', 0.00, 0.00, NULL, '', '01', '', '', 0.00, 0.00, 0.00, 'N/A', '', 0.00, 0, 0.00, '', 0, '', '', 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0.00, 'S', '', '', '', 0, 0, 90.00, 0.00, 0, 0, 40206, 0.00, 0.00, 0.00, 0.00, 0, '', 0.00, 0.00, 0.00, '', 0.00, 0.00, '', 0),
+('20001008', 'DESLER M  PED 2.5 MG/5 MG X 30 TAB MAST. LA SANTE', '001', '101', 18.52, 0.00, 0.00, 0.00, 326.40, 0.00, 0.00, 0.00, 0.00, 1.00, 174.00, 0.00, 0.00, 278.89, 278.89, 9.80, 265.95, 320.57, 10.00, 10.00, '20875', '', '2023-07-20', '2023-07-14', 'No', 'No', 'No', '0', 'No', '2018-01-01', '2018-01-01', 0.00, 0.00, 264.00, 136.00, 0.00, 0.00, 0.00, '', '', '', '', '', '', '2018-01-01', '20875', 0.00, 0.00, '2018-01-01', '', '01', '', '', 0.00, 0.00, 0.00, 'N/A', '', 0.00, 0, 0.00, 'DESLORATADIN-MONTELUKAST', 0, '', '', 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0.00, 'S', '', '', '', 0, 0, 65.00, 2.09, 0, 0, 30899, 0.00, 0.00, 0.00, 0.00, 1, '', 0.00, 0.00, 0.00, '', 0.00, 0.00, '20875', 0),
+('5380', 'ANALPER FORTE 650 MG X 10 TAB. LA SANTE  (ACETAMINOFEN) ', '001', '102', 22.07, 0.00, 0.00, 0.00, 47.08, 0.00, 0.00, 0.00, 0.00, 1.00, 25.00, 0.00, 0.00, 36.69, 0.00, 1.30, 36.69, 36.69, 0.00, 10.00, '5380', '', '2023-07-18', '2023-07-07', 'No', 'No', 'No', '0', 'No', '2018-01-01', '2018-01-01', 0.00, 0.00, 24.00, 33.00, 0.00, 0.00, 0.00, '', '', '', '', '', '', '2018-01-01', '5380', 0.00, 0.00, '2018-01-01', '', '01', '', '', 0.00, 0.00, 0.00, 'N/A', '', 0.00, 0, 0.00, 'ACETAMINOFEN', 0, '', '', 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0.00, 'S', '', '', '', 0, 0, 65.00, 0.49, 0, 0, 25773, 0.00, 0.00, 0.00, 0.00, 1, '', 0.00, 0.00, 0.00, '', 0.00, 0.00, '5380', 0);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `detallepr`
+--
+ALTER TABLE `detallepr`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `codigo` (`codigo`);
+
+--
+-- Indices de la tabla `devices`
+--
+ALTER TABLE `devices`
+  ADD PRIMARY KEY (`id_user`) USING BTREE;
+
+--
+-- Indices de la tabla `movements`
+--
+ALTER TABLE `movements`
+  ADD PRIMARY KEY (`id_mov`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `detallepr`
+--
+ALTER TABLE `detallepr`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `devices`
+--
+ALTER TABLE `devices`
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+
+--
+-- AUTO_INCREMENT de la tabla `movements`
+--
+ALTER TABLE `movements`
+  MODIFY `id_mov` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
