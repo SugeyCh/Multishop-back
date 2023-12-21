@@ -23,22 +23,29 @@ var getProd = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _context.next = 2;
+          _context.prev = 0;
+          _context.next = 3;
           return (0, _connection.conn)();
-        case 2:
+        case 3:
           bd = _context.sent;
-          _context.next = 5;
-          return bd.query('SELECT * FROM calternos WHERE chijo = ?', [req.params.chijo]);
-        case 5:
+          _context.next = 6;
+          return bd.query("SELECT s.codigo AS codigo, s.descrip AS descrip, FLOOR(s.existencia) AS existencia, ROUND(p.precio1, 2) AS precio1 FROM calternos c JOIN sinv s ON c.cpadre = s.codigo JOIN detallepr p ON s.codigo = p.codigo WHERE c.chijo = ? UNION ALL SELECT s2.codigo AS codigo, s2.descrip AS descrip, FLOOR(s2.existencia) AS existencia, ROUND(p2.precio1, 2) AS precio1 FROM sinv s2 JOIN detallepr p2 ON s2.codigo = p2.codigo WHERE s2.codigo = ? UNION ALL SELECT s3.codigo AS codigo, s3.descrip AS descrip, FLOOR(s3.existencia) AS existencia, ROUND(p3.precio1, 2) AS precio1 FROM sinv s3 JOIN detallepr p3 ON s3.codigo = p3.codigo WHERE s3.barra = ? ", [req.params.chijo, req.params.chijo, req.params.chijo]);
+        case 6:
           _yield$bd$query = _context.sent;
           _yield$bd$query2 = _slicedToArray(_yield$bd$query, 1);
           consult = _yield$bd$query2[0];
-          res.status(200).json(consult);
-        case 9:
+          res.json(consult);
+          _context.next = 15;
+          break;
+        case 12:
+          _context.prev = 12;
+          _context.t0 = _context["catch"](0);
+          console.log('Error: ', _context.t0);
+        case 15:
         case "end":
           return _context.stop();
       }
-    }, _callee);
+    }, _callee, null, [[0, 12]]);
   }));
   return function getProd(_x, _x2) {
     return _ref.apply(this, arguments);
@@ -51,16 +58,17 @@ var postProduct = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          _context2.next = 2;
+          _context2.prev = 0;
+          _context2.next = 3;
           return (0, _connection.conn)();
-        case 2:
+        case 3:
           bd = _context2.sent;
-          _context2.next = 5;
-          return bd.query('INSERT INTO movements(id_user, cod_prod, conteo) VALUES (?, ?, ?)', [req.body.id_user, req.body.cod_prod, req.body.conteo]);
-        case 5:
-          _context2.next = 7;
+          _context2.next = 6;
+          return bd.query('INSERT INTO movements(user, cod_prod, conteo) VALUES (?, ?, ?)', [req.body.user, req.body.cod_prod, req.body.conteo]);
+        case 6:
+          _context2.next = 8;
           return bd.query('SELECT * FROM movements');
-        case 7:
+        case 8:
           _yield$bd$query3 = _context2.sent;
           _yield$bd$query4 = _slicedToArray(_yield$bd$query3, 1);
           consul = _yield$bd$query4[0];
@@ -70,11 +78,17 @@ var postProduct = /*#__PURE__*/function () {
           } else {
             console.log('Error al registrar'.bgRed.white);
           }
-        case 11:
+          _context2.next = 17;
+          break;
+        case 14:
+          _context2.prev = 14;
+          _context2.t0 = _context2["catch"](0);
+          console.log('Error al consultar. ', _context2.t0);
+        case 17:
         case "end":
           return _context2.stop();
       }
-    }, _callee2);
+    }, _callee2, null, [[0, 14]]);
   }));
   return function postProduct(_x3, _x4) {
     return _ref2.apply(this, arguments);
