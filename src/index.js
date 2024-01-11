@@ -1,9 +1,9 @@
 import app from "./app.js";
 import colors from 'colors';
 
-const port = 3000
+const port = 4000
 const local = 'localhost'
-const ip = '192.168.1.2'
+const ip = '0.0.0.0'
 
 app.listen(port, (err) => {
   if (err) throw err

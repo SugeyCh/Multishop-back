@@ -18,9 +18,15 @@ const app = express();
 // const specs = swaggerJSDoc(options);
 
 app.use(cors({
-    origin: ["*"],
-    methods: ["GET", "POST"]
+    origin: [
+        "http://localhost:3000", 
+        "http://172.16.0.34:3000", 
+    ],
+    methods: ["GET", "POST"],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization',],
 }))
+app.options('*', cors());
 app.use(cookieParser())
 app.use(morgan("dev"));
 app.use(express.json());

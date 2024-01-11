@@ -17,7 +17,23 @@ export const getUsers = async (req, res) => {
 
 
 export const verifyUser = (req, res, next) => {
-  try{
+    const token = req.cookies.token;
+  
+    if (!token) {
+      return res.json({ Error: "No estás autenticado" });
+    } else {
+      jwt.verify(token, "clave-secreta", (err, decoded) => {
+        if (err) {
+          return res.json({ Error: "Token inválido" });
+        } else {
+          req.nombre = decoded.nombre;
+          next();
+        }
+      });
+    }
+  
+  
+  /* try{
     const token = req.cookies.token
     console.log(token);
     if(!token){
@@ -34,6 +50,20 @@ export const verifyUser = (req, res, next) => {
     }
   }catch(err){
     console.log("Error al verificar usuario: ", err)
+  } */
+}
+
+export const verifyToken = (req, res) => {
+  try {
+    const {token} = req.body
+    jwt.verify(token, 'clave-secreta', (err, decoded) => {
+      if (err) {
+        console.log(err)
+      }
+      res.status(200).json({data: decoded, message: 'Verific'})
+    })
+  } catch (err) {
+    console.log(err)
   }
 }
 
@@ -68,13 +98,15 @@ export const loginUser = async (req, res) => {
     if (contrasena === user.contrasena) {
       console.log("Autenticación exitosa");
       const nombre = user.nombre
-      const token = jwt.sign({nombre}, "clave-secreta", {expiresIn: "1d"})
-      res.cookie("token", token)
+      const rol = user.rol
+      const token = jwt.sign({nombre, rol}, "clave-secreta", {expiresIn: "1d"})
+      //res.cookie("token", token)
+      res.cookie("token", token, { httpOnly: true });
       console.log("token: ", token)
       // console.log(results);
       return res
         .status(200)
-        .json({ Status: "Autenticación exitosa", usuario: user });
+        .json({ Status: "Autenticación exitosa", usuario: user, token });
     } else {
       console.log("Contraseña incorrecta");
       console.log(user.contrasena)
@@ -91,9 +123,11 @@ export const loginUser = async (req, res) => {
 
 export const userLogout = (req, res) => {
   try{
+    console.log(req.cookies.token)
     res.clearCookie('token')
     return res.json({Status: 'Success'})
   }catch(err){
     console.log("Error al salir: ", err)
+    return res.status(500).json({ Error: 'Error al cerrar sesión' })
   }
 }

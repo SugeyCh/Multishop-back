@@ -10,6 +10,7 @@ export const getProds = async (req, res) => {
     }
 };
 
+// Se trae un sólo producto
 export const getReg = async (req, res) => {
     const bd = await conn();
     const [consult] = await bd.query("SELECT s.codigo, s.descrip, s.precio1, s.existencia FROM calternos c JOIN sinv s ON c.cpadre = s.codigo WHERE c.chijo = ?", [req.params.chijo]);
